@@ -24,6 +24,16 @@ const nextConfig: NextConfig = {
         hostname: "hassaan431.pythonanywhere.com",
         pathname: "/static/**",
       },
+      {
+        protocol: "https",
+        hostname: "akdistributors.pythonanywhere.com",
+        pathname: "/static/**",
+      },
+      {
+        protocol: "http",
+        hostname: "akdistributors.pythonanywhere.com",
+        pathname: "/static/**",
+      },
     ],
   },
   async rewrites() {
