@@ -58,7 +58,7 @@ export default function BrandCarousel({ brands }: { brands: { id: number, name: 
         {duplicatedBrands.map((brand, i) => (
           <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="transition-transform hover:scale-110 shrink-0 ">
             <Image
-              src={brand.logo_url}
+              src={brand.logo_url || ""}
               alt={brand.name}
               width={140}
               height={70}
