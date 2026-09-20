@@ -22,7 +22,7 @@ async function getBrands() {
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
-    return data.data.map((b: any) => b.name) || [];
+    return data.data.map((b: { name: string }) => b.name) || [];
   } catch (error) {
     console.error("Failed to fetch brands:", error);
     return [];

@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function BrandCarousel({ brands }: { brands: any[] }) {
+export default function BrandCarousel({ brands }: { brands: { id: number, name: string, logo_url?: string }[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 

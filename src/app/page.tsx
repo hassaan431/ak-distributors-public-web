@@ -10,7 +10,7 @@ async function getBrands() {
     const res = await fetch(`${API_URL}/api/public/brands`, { cache: 'no-store' });
     const data = await res.json();
     if (data.success && data.data) {
-      return data.data.filter((b: any) => b.logo_url);
+      return data.data.filter((b: { logo_url?: string }) => b.logo_url);
     }
   } catch (e) {
     console.error("Failed to fetch brands:", e);
@@ -24,7 +24,7 @@ async function getLatestProducts() {
     const res = await fetch(`${API_URL}/api/public/products`, { cache: 'no-store' });
     const data = await res.json();
     if (data.success && data.data && data.data.length > 0) {
-      const withImages = data.data.filter((p: any) => p.image_url);
+      const withImages = data.data.filter((p: { image_url?: string, name?: string, brand?: string, category_name?: string }) => p.image_url);
       if (withImages.length > 0) {
         const randomized = [...withImages].sort(() => 0.5 - Math.random());
         return randomized.slice(0, 6);
@@ -57,7 +57,7 @@ export default async function Home() {
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/90 to-emerald-900/40" />
         <div className="relative z-10 max-w-4xl mx-auto py-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 border border-emerald-500/30 backdrop-blur-sm">
-            Northern California's Premier Distributor
+            Northern California&apos;s Premier Distributor
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-playfair font-black text-white mb-6 drop-shadow-md leading-tight">
             Premium Desi Brands Distribution
