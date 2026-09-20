@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { Shield, Truck, Factory } from "lucide-react";
 import Image from "next/image";

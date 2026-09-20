@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import ProductCatalog from "@/components/ProductCatalog";
 
 export const revalidate = 3600; // Revalidate every hour
