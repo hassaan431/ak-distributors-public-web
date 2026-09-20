@@ -94,30 +94,36 @@ export default async function Home() {
             {/* Feature 1 */}
             <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
               <div className="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="bg-emerald-100 text-emerald-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6 relative z-10">
-                <Truck className="w-6 h-6" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="bg-emerald-100 text-emerald-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
+                  <Truck className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 m-0">Fast Sacramento Dispatch</h3>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3 relative z-10">Fast Sacramento Dispatch</h3>
               <p className="text-slate-600 leading-relaxed relative z-10">Optimized logistics ensuring next-day delivery across Northern California.</p>
             </div>
 
             {/* Feature 2 */}
             <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
               <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="bg-blue-100 text-blue-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6 relative z-10">
-                <Shield className="w-6 h-6" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="bg-blue-100 text-blue-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
+                  <Shield className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 m-0">Verified Quality</h3>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3 relative z-10">Verified Quality</h3>
               <p className="text-slate-600 leading-relaxed relative z-10">Rigorous quality control for every batch before it reaches your shelves.</p>
             </div>
 
             {/* Feature 3 */}
             <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
               <div className="absolute inset-0 bg-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="bg-slate-100 text-slate-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6 relative z-10">
-                <Factory className="w-6 h-6" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="bg-slate-100 text-slate-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
+                  <Factory className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 m-0">Direct Sourcing</h3>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3 relative z-10">Direct Sourcing</h3>
               <p className="text-slate-600 leading-relaxed relative z-10">Exclusive partnerships with top manufacturers to bring you unbeatable margins.</p>
             </div>
           </div>
