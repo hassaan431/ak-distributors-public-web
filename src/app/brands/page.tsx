@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 async function getBrands() {
-  const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000'}/api/public/brands`;
+  const url = `${process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000'}/api/public/brands`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -17,7 +17,6 @@ async function getBrands() {
 
 export default async function BrandsPage() {
   const brands = await getBrands();
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -30,7 +29,7 @@ export default async function BrandsPage() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {brands.map((brand: { name: string, logo_url: string | null }) => {
-          const logoUrl = brand.logo_url ? `${API_URL}${brand.logo_url}` : null;
+          const logoUrl = brand.logo_url;
           return (
             <Link key={brand.name} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="group">
               <div className="bg-white rounded-2xl border p-8 flex flex-col items-center justify-center aspect-square hover:shadow-xl transition-all duration-300 relative overflow-hidden">
@@ -41,6 +40,7 @@ export default async function BrandsPage() {
                       src={logoUrl}
                       alt={brand.name}
                       fill
+                      unoptimized
                       className="object-contain p-4 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply"
                     />
                   </div>

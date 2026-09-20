@@ -5,8 +5,8 @@ export default function Footer() {
   return (
     <footer className="bg-emerald-950 text-slate-300 py-12 text-center mt-auto border-t-4 border-emerald-800">
       <div className="container mx-auto px-4 flex flex-col items-center gap-6">
-        <Link href="/" className="inline-block opacity-80 hover:opacity-100 transition-opacity">
-          {/* Using text for logo if image is not accessible, or use Next Image if available */}
+        <Link href="/" className="inline-flex flex-col items-center opacity-90 hover:opacity-100 transition-opacity">
+          <Image src="/logo.png" alt="AK Distributors Logo" width={60} height={60} className="object-contain mb-3 drop-shadow-md" />
           <span className="font-playfair text-2xl font-bold text-white">AK Distributors</span>
         </Link>
         <div className="space-y-2">

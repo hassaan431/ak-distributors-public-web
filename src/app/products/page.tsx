@@ -3,7 +3,7 @@ import ProductCatalog from "@/components/ProductCatalog";
 export const revalidate = 3600; // Revalidate every hour
 
 async function getProducts() {
-  const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000'}/api/public/products`;
+  const url = `${process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000'}/api/public/products`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -16,7 +16,7 @@ async function getProducts() {
 }
 
 async function getBrands() {
-  const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000'}/api/public/brands`;
+  const url = `${process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000'}/api/public/brands`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -31,10 +31,14 @@ async function getBrands() {
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: { brand?: string };
+  searchParams: Promise<{ brand?: string }>;
 }) {
-  const [products, brands] = await Promise.all([getProducts(), getBrands()]);
-  const initialBrandFilter = searchParams.brand || "All";
+  const [products, brands, resolvedSearchParams] = await Promise.all([
+    getProducts(),
+    getBrands(),
+    searchParams
+  ]);
+  const initialBrandFilter = resolvedSearchParams?.brand || "All";
 
   return (
     <ProductCatalog

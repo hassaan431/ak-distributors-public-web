@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Search } from "lucide-react";
 
 type Product = {
@@ -32,9 +31,6 @@ export default function ProductCatalog({
     return matchesSearch && matchesBrand;
   });
 
-  // Base URL for images since the Flask backend serves them as relative paths
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-6">
@@ -58,7 +54,7 @@ export default function ProductCatalog({
         <div className="w-full md:w-64 shrink-0">
           <div className="bg-white rounded-2xl p-6 border sticky top-24">
             <h3 className="font-bold text-lg mb-4">Brands</h3>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 max-h-[60vh] overflow-y-auto pr-1">
               <button
                 onClick={() => setSelectedBrand("All")}
                 className={`text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
@@ -95,9 +91,9 @@ export default function ProductCatalog({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {filteredProducts.map((product) => {
-                const imageUrl = product.image_url ? `${API_URL}${product.image_url}` : null;
+                const imageUrl = product.image_url;
                 return (
                   <div key={product.id} className="bg-white border rounded-2xl h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 relative group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -107,6 +103,8 @@ export default function ProductCatalog({
                           src={imageUrl}
                           alt={product.name}
                           fill
+                          unoptimized
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                           className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
                         />
                       ) : (
