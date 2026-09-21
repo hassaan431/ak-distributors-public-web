@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
+import { MotionRise } from "@/components/motion/MotionRise";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 import { Shield, Truck, Factory } from "lucide-react";
 import Image from "next/image";
 import BrandCarousel from "@/components/BrandCarousel";
@@ -55,7 +57,7 @@ export default async function Home() {
           sizes="100vw"
         />
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/90 to-emerald-900/40" />
-        <div className="relative z-10 max-w-4xl mx-auto py-16">
+        <MotionRise as="div" targets="children" stagger={100} className="relative z-10 max-w-4xl mx-auto py-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 border border-emerald-500/30 backdrop-blur-sm">
             Northern California&apos;s Premier Distributor
           </span>
@@ -73,7 +75,7 @@ export default async function Home() {
               Explore Product Catalog
             </Link>
           </div>
-        </div>
+        </MotionRise>
       </section>
 
       {/* Marquee Section */}
@@ -90,7 +92,7 @@ export default async function Home() {
             <p className="text-slate-500 max-w-2xl mx-auto text-lg">We combine decades of experience with modern logistics to ensure your shelves are always stocked with the highest quality goods.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <MotionReveal as="div" targets="children" stagger={150} className="grid md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
               <div className="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -126,7 +128,7 @@ export default async function Home() {
               </div>
               <p className="text-slate-600 leading-relaxed relative z-10">Exclusive partnerships with top manufacturers to bring you unbeatable margins.</p>
             </div>
-          </div>
+          </MotionReveal>
         </div>
       </section>
 
@@ -140,7 +142,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+          <MotionReveal as="div" targets="children" stagger={100} className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {latestProducts.map((product) => (
               <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group h-full">
                 <div className="bg-white border rounded-2xl h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 relative">
@@ -169,7 +171,7 @@ export default async function Home() {
                 </div>
               </Link>
             ))}
-          </div>
+          </MotionReveal>
 
           <div className="mt-12 pt-8 border-t border-slate-100 flex justify-center w-full clear-both">
             <Link href="/products" className="inline-flex items-center justify-center rounded-full bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-bold transition-all shadow-lg hover:shadow-xl w-full sm:w-auto">

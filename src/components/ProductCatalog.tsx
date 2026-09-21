@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { MotionReveal } from "@/components/motion/MotionReveal";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
@@ -91,7 +92,7 @@ export default function ProductCatalog({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            <MotionReveal as="div" targets="children" stagger={50} className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
               {filteredProducts.map((product) => {
                 const imageUrl = product.image_url;
                 return (
@@ -121,7 +122,7 @@ export default function ProductCatalog({
                   </div>
                 );
               })}
-            </div>
+            </MotionReveal>
           )}
         </div>
       </div>
