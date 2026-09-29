@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { Shield, Truck, Factory } from "lucide-react";
 import Image from "next/image";
+import BrandsMarquee from "@/components/BrandsMarquee";
 
 async function getBrands() {
   const API_URL = process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com';
@@ -78,27 +79,7 @@ export default async function Home() {
 
       {/* Marquee Section */}
       <section className="py-20 bg-secondary overflow-hidden">
-        <div className="relative flex group">
-          <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
-          
-          <div className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory w-full">
-            <div className="flex items-center whitespace-nowrap md:animate-marquee group-hover:[animation-play-state:paused] w-max px-8">
-              {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-                <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-6 md:mx-12 shrink-0 opacity-60 hover:opacity-100 transition-opacity snap-center">
-                  <Image
-                    src={brand.logo_url}
-                    alt={brand.name}
-                    width={140}
-                    height={70}
-                    unoptimized
-                    className="object-contain h-12 md:h-14 w-auto mix-blend-multiply grayscale hover:grayscale-0 transition-all"
-                  />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+        <BrandsMarquee brands={marqueeBrands} />
       </section>
 
       {/* Utility Grid Features */}
