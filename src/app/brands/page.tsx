@@ -1,10 +1,10 @@
-export const dynamic = "force-dynamic";
 export const revalidate = 3600;
 import Image from "next/image";
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
 
 async function getBrands() {
-  const url = `${process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000'}/api/public/brands`;
+  const url = `${process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com'}/api/public/brands`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];

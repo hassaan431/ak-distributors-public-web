@@ -1,18 +1,15 @@
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
-import { MotionRise } from "@/components/motion/MotionRise";
-import { MotionReveal } from "@/components/motion/MotionReveal";
 import { Shield, Truck, Factory } from "lucide-react";
 import Image from "next/image";
-import BrandCarousel from "@/components/BrandCarousel";
 
 async function getBrands() {
-  const API_URL = process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000';
+  const API_URL = process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com';
   try {
     const res = await fetch(`${API_URL}/api/public/brands`, { cache: 'no-store' });
     const data = await res.json();
     if (data.success && data.data) {
-      return data.data.filter((b: { logo_url?: string }) => b.logo_url);
+      return data.data.filter((b: any) => b.logo_url);
     }
   } catch (e) {
     console.error("Failed to fetch brands:", e);
@@ -21,12 +18,12 @@ async function getBrands() {
 }
 
 async function getLatestProducts() {
-  const API_URL = process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:5000';
+  const API_URL = process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com';
   try {
     const res = await fetch(`${API_URL}/api/public/products`, { cache: 'no-store' });
     const data = await res.json();
     if (data.success && data.data && data.data.length > 0) {
-      const withImages = data.data.filter((p: { image_url?: string, name?: string, brand?: string, category_name?: string }) => p.image_url);
+      const withImages = data.data.filter((p: any) => p.image_url);
       if (withImages.length > 0) {
         const randomized = [...withImages].sort(() => 0.5 - Math.random());
         return randomized.slice(0, 6);
@@ -45,109 +42,110 @@ export default async function Home() {
   const marqueeBrands = await getBrands();
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative min-h-[75vh] md:min-h-[80vh] flex items-center justify-center text-center px-4 overflow-hidden bg-slate-900">
-        <Image 
-          src="/images/hero_bg.png" 
-          alt="Wholesale Distribution" 
-          fill 
-          className="object-cover opacity-70" 
-          priority 
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/90 to-emerald-900/40" />
-        <MotionRise as="div" targets="children" stagger={100} className="relative z-10 max-w-4xl mx-auto py-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs sm:text-sm font-semibold mb-6 border border-emerald-500/30 backdrop-blur-sm">
-            Northern California&apos;s Premier Distributor
-          </span>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-playfair font-black text-white mb-6 drop-shadow-md leading-tight">
-            Premium Desi Brands Distribution
+      <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-background">
+        <div className="relative z-10 max-w-4xl mx-auto py-24 flex flex-col items-center">
+          <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-foreground mb-4 tracking-tighter leading-none">
+            Wholesale, <br/> refined.
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-emerald-50 mb-10 drop-shadow max-w-2xl mx-auto leading-relaxed">
-            Providing top-tier ingredients, desi brands, and grocery essentials for businesses across Northern California.
+          <p className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto font-light tracking-tight">
+            Premium equipment and supplies for discerning businesses across Northern California.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products" 
-              className="inline-flex items-center justify-center rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-8 sm:px-10 py-4 sm:py-5 text-lg sm:text-xl font-bold transition-all hover:scale-105 shadow-xl hover:shadow-emerald-900/20"
+              className="inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg transition-transform hover:scale-95"
             >
-              Explore Product Catalog
+              Shop Wholesale
             </Link>
           </div>
-        </MotionRise>
+        </div>
+        
+        {/* We use hero_bg.png but present it as a clean product shot if possible */}
+        <div className="relative w-full max-w-5xl aspect-video mx-auto -mt-8 z-0">
+           <Image 
+            src="/images/hero_bg.png" 
+            alt="Wholesale Distribution" 
+            fill 
+            className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]" 
+            priority 
+            sizes="100vw"
+          />
+        </div>
       </section>
 
       {/* Marquee Section */}
-      <section className="py-16 bg-white border-b border-slate-100 overflow-hidden">
-        <h2 className="text-center text-sm font-bold text-slate-400 uppercase tracking-[0.15em] mb-8">Our Featured Partners</h2>
-        <BrandCarousel brands={marqueeBrands} />
+      <section className="py-20 bg-secondary overflow-hidden">
+        <div className="relative flex overflow-x-hidden group">
+          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10" />
+          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10" />
+          <div className="animate-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
+            {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
+              <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-12 shrink-0 opacity-60 hover:opacity-100 transition-opacity">
+                <Image
+                  src={brand.logo_url}
+                  alt={brand.name}
+                  width={140}
+                  height={70}
+                  unoptimized
+                  className="object-contain h-14 w-auto mix-blend-multiply grayscale hover:grayscale-0 transition-all"
+                />
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Bento Grid Features */}
-      <section className="py-24 bg-slate-50 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-playfair font-bold text-slate-900 mb-4">Why Choose AK Distributors?</h2>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg">We combine decades of experience with modern logistics to ensure your shelves are always stocked with the highest quality goods.</p>
-          </div>
-
-          <MotionReveal as="div" targets="children" stagger={150} className="grid md:grid-cols-3 gap-8">
+      {/* Utility Grid Features */}
+      <section className="py-32 bg-background px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <div className="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-center gap-4 mb-4 relative z-10">
-                <div className="bg-emerald-100 text-emerald-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
-                  <Truck className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 m-0">Fast Sacramento Dispatch</h3>
+            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
+              <div className="text-primary mb-6">
+                <Truck className="w-10 h-10 stroke-1" />
               </div>
-              <p className="text-slate-600 leading-relaxed relative z-10">Optimized logistics ensuring next-day delivery across Northern California.</p>
+              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Fast Dispatch.</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">Next-day delivery optimized for Northern California.</p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <div className="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-center gap-4 mb-4 relative z-10">
-                <div className="bg-blue-100 text-blue-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
-                  <Shield className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 m-0">Verified Quality</h3>
+            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
+              <div className="text-primary mb-6">
+                <Shield className="w-10 h-10 stroke-1" />
               </div>
-              <p className="text-slate-600 leading-relaxed relative z-10">Rigorous quality control for every batch before it reaches your shelves.</p>
+              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Verified Quality.</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">Rigorous quality control for every batch you order.</p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white rounded-2xl p-8 border shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
-              <div className="absolute inset-0 bg-slate-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="flex items-center gap-4 mb-4 relative z-10">
-                <div className="bg-slate-100 text-slate-600 w-12 h-12 shrink-0 rounded-xl flex items-center justify-center">
-                  <Factory className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 m-0">Direct Sourcing</h3>
+            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
+              <div className="text-primary mb-6">
+                <Factory className="w-10 h-10 stroke-1" />
               </div>
-              <p className="text-slate-600 leading-relaxed relative z-10">Exclusive partnerships with top manufacturers to bring you unbeatable margins.</p>
+              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Direct Sourcing.</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">Exclusive manufacturer partnerships for unbeatable margins.</p>
             </div>
-          </MotionReveal>
+          </div>
         </div>
       </section>
 
       {/* Latest Arrivals */}
-      <section className="py-24 bg-white px-4">
+      <section className="py-32 bg-secondary px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-            <div>
-              <h2 className="text-4xl font-playfair font-bold text-slate-900 mb-2">Latest Arrivals</h2>
-              <p className="text-slate-500 text-lg">Discover our newest wholesale offerings ready for dispatch.</p>
-            </div>
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-bold text-foreground mb-4 tracking-tighter">Latest Arrivals.</h2>
+            <Link href="/products" className="text-primary font-medium hover:underline underline-offset-4 text-lg">
+              Explore the Collection &gt;
+            </Link>
           </div>
 
-          <MotionReveal as="div" targets="children" stagger={100} className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestProducts.map((product) => (
-              <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group h-full">
-                <div className="bg-white border rounded-2xl h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300 relative">
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                  <div className="aspect-square bg-slate-50 border-b relative p-6 flex items-center justify-center overflow-hidden">
+              <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group block">
+                <div className="bg-background rounded-[18px] overflow-hidden flex flex-col h-full border border-border/50 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
+                  <div className="aspect-[4/3] bg-background relative p-8 flex items-center justify-center">
                       {product.image_url ? (
                         <Image
                           src={product.image_url}
@@ -155,28 +153,22 @@ export default async function Home() {
                           fill
                           unoptimized
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 mix-blend-multiply"
+                          className="object-contain p-8 group-hover:scale-105 transition-transform duration-700 drop-shadow-xl"
                         />
                       ) : (
-                        <div className="text-xl font-black text-slate-200 uppercase text-center group-hover:scale-105 transition-transform duration-500">
+                        <div className="text-2xl font-bold text-muted uppercase text-center tracking-tighter">
                           {product.name}
                         </div>
                       )}
                   </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2">{product.brand || 'Unbranded'}</span>
-                    <h3 className="font-bold text-slate-900 mb-1 line-clamp-2">{product.name}</h3>
-                    <p className="text-sm text-slate-500 mt-auto">{product.category_name}</p>
+                  <div className="p-8 pt-4 flex flex-col flex-1 text-center bg-background">
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">{product.brand || 'Unbranded'}</span>
+                    <h3 className="font-bold text-xl text-foreground mb-1 tracking-tight">{product.name}</h3>
+                    <p className="text-base text-muted-foreground mt-1">{product.category_name}</p>
                   </div>
                 </div>
               </Link>
             ))}
-          </MotionReveal>
-
-          <div className="mt-12 pt-8 border-t border-slate-100 flex justify-center w-full clear-both">
-            <Link href="/products" className="inline-flex items-center justify-center rounded-full bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 text-lg font-bold transition-all shadow-lg hover:shadow-xl w-full sm:w-auto">
-              View All Catalog &rarr;
-            </Link>
           </div>
         </div>
       </section>

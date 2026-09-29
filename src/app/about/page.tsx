@@ -9,10 +9,6 @@ export default function AboutPage() {
         <Image src="/images/family_business_bg.png" alt="Family Business" fill className="object-cover opacity-60" priority />
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/80 to-emerald-900/60" />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-sm font-semibold mb-6 backdrop-blur-md">
-            <MapPin className="w-4 h-4" />
-            Based in Northern California
-          </div>
           <h1 className="text-5xl md:text-6xl font-playfair font-bold text-white mb-6 tracking-tight">Our Story</h1>
           <p className="text-xl text-emerald-50/80 max-w-2xl mx-auto leading-relaxed">
             From humble beginnings to a leading wholesale distributor, we are committed to delivering quality products and unmatched reliability to our partners.
@@ -30,7 +26,7 @@ export default function AboutPage() {
               <h2 className="text-3xl font-playfair font-bold text-slate-900">Built on Reliability & Excellence</h2>
               <div className="h-1 w-20 bg-emerald-500 rounded-full"></div>
               <p className="text-lg text-slate-600 leading-relaxed">
-                Founded on the principles of integrity and customer success, AK Distributors has grown to become a trusted name in the wholesale industry. We specialize in sourcing and distributing a wide range of premium products, with a particular focus on high-quality Desi brands and essential ingredients.
+                In the distribution business for over 2 decades, we have worked with the top FMCGs of Pakistan, and are now bringing our expertise to the US market. Founded on the principles of integrity and customer success, AK Distributors has grown to become a trusted name in the wholesale industry.
               </p>
               <p className="text-lg text-slate-600 leading-relaxed">
                 Our state-of-the-art warehouses and optimized logistics network ensure that your orders are processed swiftly and delivered on time. We understand the unique needs of supermarkets, grocers, and foodservice providers.
@@ -58,7 +54,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Mission</h3>
               <p className="text-slate-600 text-lg leading-relaxed">
-                To provide unparalleled service and premium products at competitive wholesale prices, fostering long-term partnerships with our clients through trust, transparency, and absolute consistency.
+                Good desi products qualities to be available Door to door.
               </p>
             </div>
             
@@ -69,9 +65,9 @@ export default function AboutPage() {
               <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
                 <HeartHandshake className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Promise</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Our Vision</h3>
               <p className="text-slate-600 text-lg leading-relaxed">
-                Your success is our success. We pledge to be more than just a supplier; we aim to be a dedicated partner who works tirelessly to keep your shelves stocked and your customers satisfied.
+                Expand business in big market like USA, establishing ourselves as the premier distributor for authentic products.
               </p>
             </div>
           </div>
