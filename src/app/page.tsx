@@ -79,22 +79,50 @@ export default async function Home() {
       {/* Marquee Section */}
       <section className="py-20 bg-secondary overflow-hidden">
         <div className="relative flex overflow-x-hidden group">
-          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10" />
-          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10" />
+          
+          {/* Layer 1: Background Marquee (Grayscale) */}
           <div className="mobile-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
             {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-              <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 opacity-60 hover:opacity-100 transition-opacity">
+              <Link key={`bg-${i}`} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 opacity-40 hover:opacity-60 transition-opacity">
                 <Image
                   src={brand.logo_url}
                   alt={brand.name}
                   width={140}
                   height={70}
                   unoptimized
-                  className="object-contain h-12 md:h-14 w-auto mix-blend-multiply grayscale hover:grayscale-0 transition-all"
+                  className="object-contain h-12 md:h-14 w-auto mix-blend-multiply grayscale transition-all"
                 />
               </Link>
             ))}
           </div>
+
+          {/* Layer 2: Foreground Marquee (Colored, Masked to Center) */}
+          <div 
+            className="absolute top-0 left-0 w-full h-full pointer-events-none"
+            style={{ 
+              maskImage: "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)", 
+              WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)" 
+            }}
+          >
+            <div className="mobile-marquee flex items-center h-full whitespace-nowrap group-hover:[animation-play-state:paused]">
+              {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
+                <div key={`fg-${i}`} className="mx-8 md:mx-12 shrink-0 opacity-100 transition-opacity">
+                  <Image
+                    src={brand.logo_url}
+                    alt={brand.name}
+                    width={140}
+                    height={70}
+                    unoptimized
+                    className="object-contain h-12 md:h-14 w-auto mix-blend-multiply transition-all drop-shadow-sm scale-110"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Fade Edges */}
+          <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
         </div>
       </section>
 
