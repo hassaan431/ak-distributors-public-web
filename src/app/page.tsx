@@ -63,36 +63,40 @@ export default async function Home() {
         </div>
         
         {/* We use hero_bg.png but present it as a clean product shot if possible */}
-        <div className="relative w-full max-w-5xl aspect-video mx-auto -mt-8 z-0">
+        <div className="relative w-full max-w-6xl mx-auto -mt-8 z-0 px-4 sm:px-8">
            <Image 
             src="/images/hero_bg.png" 
             alt="Wholesale Distribution" 
-            fill 
-            className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]" 
+            width={1200}
+            height={675}
+            className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]" 
             priority 
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         </div>
       </section>
 
       {/* Marquee Section */}
       <section className="py-20 bg-secondary overflow-hidden">
-        <div className="relative flex overflow-x-hidden group">
-          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10" />
-          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10" />
-          <div className="animate-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
-            {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-              <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-12 shrink-0 opacity-60 hover:opacity-100 transition-opacity">
-                <Image
-                  src={brand.logo_url}
-                  alt={brand.name}
-                  width={140}
-                  height={70}
-                  unoptimized
-                  className="object-contain h-14 w-auto mix-blend-multiply grayscale hover:grayscale-0 transition-all"
-                />
-              </Link>
-            ))}
+        <div className="relative flex group">
+          <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
+          
+          <div className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory w-full">
+            <div className="flex items-center whitespace-nowrap md:animate-marquee group-hover:[animation-play-state:paused] w-max px-8">
+              {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
+                <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-6 md:mx-12 shrink-0 opacity-60 hover:opacity-100 transition-opacity snap-center">
+                  <Image
+                    src={brand.logo_url}
+                    alt={brand.name}
+                    width={140}
+                    height={70}
+                    unoptimized
+                    className="object-contain h-12 md:h-14 w-auto mix-blend-multiply grayscale hover:grayscale-0 transition-all"
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
