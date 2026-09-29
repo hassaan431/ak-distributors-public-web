@@ -81,7 +81,7 @@ export default async function Home() {
         
         {/* The Marquee (Single Layer, Full Color) */}
         <div className="mobile-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
-          {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
+          {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
             <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 transition-transform hover:scale-105">
               <Image
                 src={brand.logo_url}
@@ -95,12 +95,11 @@ export default async function Home() {
           ))}
         </div>
 
-        {/* Grayscale & Fade Overlay (Masked to reveal center) */}
+        {/* Grayscale Color Overlay (Reveals center in full color) */}
         <div 
-          className="absolute inset-0 backdrop-grayscale bg-secondary/40 pointer-events-none z-10"
+          className="absolute inset-0 z-10 pointer-events-none mix-blend-color opacity-80"
           style={{
-            maskImage: "linear-gradient(to right, black 0%, black 25%, transparent 40%, transparent 60%, black 75%, black 100%)",
-            WebkitMaskImage: "linear-gradient(to right, black 0%, black 25%, transparent 40%, transparent 60%, black 75%, black 100%)"
+            background: "linear-gradient(to right, #808080 0%, #808080 30%, transparent 45%, transparent 55%, #808080 70%, #808080 100%)"
           }}
         />
 
