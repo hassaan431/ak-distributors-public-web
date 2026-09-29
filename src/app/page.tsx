@@ -77,53 +77,36 @@ export default async function Home() {
       </section>
 
       {/* Marquee Section */}
-      <section className="py-20 bg-secondary overflow-hidden">
-        <div className="relative flex overflow-x-hidden group">
-          
-          {/* Layer 1: Background Marquee (Grayscale) */}
-          <div className="mobile-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
-            {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-              <Link key={`bg-${i}`} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 opacity-40 hover:opacity-60 transition-opacity">
-                <Image
-                  src={brand.logo_url}
-                  alt={brand.name}
-                  width={140}
-                  height={70}
-                  unoptimized
-                  className="object-contain h-12 md:h-14 w-auto mix-blend-multiply grayscale transition-all"
-                />
-              </Link>
-            ))}
-          </div>
-
-          {/* Layer 2: Foreground Marquee (Colored, Masked to Center) */}
-          <div 
-            className="absolute top-0 left-0 w-full h-full pointer-events-none"
-            style={{ 
-              maskImage: "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)", 
-              WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 40%, black 60%, transparent 80%)" 
-            }}
-          >
-            <div className="mobile-marquee flex items-center h-full whitespace-nowrap group-hover:[animation-play-state:paused]">
-              {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-                <div key={`fg-${i}`} className="mx-8 md:mx-12 shrink-0 opacity-100 transition-opacity">
-                  <Image
-                    src={brand.logo_url}
-                    alt={brand.name}
-                    width={140}
-                    height={70}
-                    unoptimized
-                    className="object-contain h-12 md:h-14 w-auto mix-blend-multiply transition-all drop-shadow-sm scale-110"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Fade Edges */}
-          <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none" />
+      <section className="py-20 bg-secondary overflow-hidden relative group">
+        
+        {/* The Marquee (Single Layer, Full Color) */}
+        <div className="mobile-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
+          {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
+            <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 transition-transform hover:scale-105">
+              <Image
+                src={brand.logo_url}
+                alt={brand.name}
+                width={140}
+                height={70}
+                unoptimized
+                className="object-contain h-12 md:h-14 w-auto mix-blend-multiply"
+              />
+            </Link>
+          ))}
         </div>
+
+        {/* Grayscale & Fade Overlay (Masked to reveal center) */}
+        <div 
+          className="absolute inset-0 backdrop-grayscale bg-secondary/40 pointer-events-none z-10"
+          style={{
+            maskImage: "linear-gradient(to right, black 0%, black 25%, transparent 40%, transparent 60%, black 75%, black 100%)",
+            WebkitMaskImage: "linear-gradient(to right, black 0%, black 25%, transparent 40%, transparent 60%, black 75%, black 100%)"
+          }}
+        />
+
+        {/* Fade Edges to blend with background */}
+        <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-20 pointer-events-none" />
       </section>
 
       {/* Utility Grid Features */}
