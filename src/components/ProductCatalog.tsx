@@ -92,10 +92,14 @@ export default function ProductCatalog({
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => {
+              {filteredProducts.map((product, i) => {
                 const imageUrl = product.image_url;
                 return (
-                  <div key={product.id} className="bg-background border border-border rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-xl transition-shadow duration-300 relative group">
+                  <div 
+                    key={product.id} 
+                    className="bg-background border border-border rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-2xl hover:shadow-black/5 transition-all duration-300 relative group animate-cascade opacity-0"
+                    style={{ animationDelay: `${i * 100}ms` }}
+                  >
                     <div className="aspect-square bg-secondary relative p-6 flex items-center justify-center overflow-hidden">
                       {imageUrl ? (
                         <Image

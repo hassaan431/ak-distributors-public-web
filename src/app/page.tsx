@@ -78,7 +78,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products" 
-              className="inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg transition-transform hover:scale-95"
+              className="inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg transition-transform active:scale-95"
             >
               Shop Wholesale
             </Link>
