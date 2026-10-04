@@ -62,10 +62,10 @@ export default async function Home() {
           </div>
         </div>
         
-        {/* We use hero_bg.png but present it as a clean product shot if possible */}
+        {/* We use hero_bg_new.jpg but present it as a clean product shot if possible */}
         <div className="relative w-full max-w-6xl mx-auto -mt-8 z-0 px-4 sm:px-8">
            <Image 
-            src="/images/hero_bg.png" 
+            src="/images/hero_bg_new.jpg" 
             alt="Wholesale Distribution" 
             width={1200}
             height={675}
