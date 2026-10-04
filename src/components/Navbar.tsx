@@ -53,19 +53,22 @@ export default function Navbar() {
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle Menu</span>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background border-border">
-              <nav className="flex flex-col gap-6 mt-12">
-                {links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-2xl font-bold text-foreground hover:text-primary tracking-tight transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
+            <SheetContent side="right" className="w-[85vw] max-w-[350px] bg-background border-l border-border p-8">
+              <div className="mt-8 flex flex-col h-full">
+                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-6">Navigation</span>
+                <nav className="flex flex-col gap-2">
+                  {links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center text-xl sm:text-2xl font-medium text-foreground hover:text-primary transition-colors py-4 border-b border-border/60"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
