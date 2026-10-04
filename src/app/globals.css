@@ -170,7 +170,7 @@
 
 @layer utilities {
   .mobile-marquee {
-    animation: marquee 8s linear infinite;
+    animation: marquee 16s linear infinite;
   }
   @media (min-width: 768px) {
     .mobile-marquee {
