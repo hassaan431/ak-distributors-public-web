@@ -1,84 +1,112 @@
-export const dynamic = 'force-dynamic';
-import Link from "next/link";
-import { Shield, Truck, Factory } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { Truck, Shield, Factory } from "lucide-react";
 
-async function getBrands() {
-  const API_URL = process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com';
-  try {
-    const res = await fetch(`${API_URL}/api/public/brands`, { cache: 'no-store' });
-    const data = await res.json();
-    if (data.success && data.data) {
-      return data.data.filter((b: any) => b.logo_url);
-    }
-  } catch (e) {
-    console.error("Failed to fetch brands:", e);
-  }
-  return [];
+interface Product {
+  id: number;
+  name: string;
+  category_name: string;
+  image_url: string | null;
+  brand: string | null;
 }
 
-async function getLatestProducts() {
-  const API_URL = process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com';
+interface Brand {
+  id: number;
+  name: string;
+  logo_url: string;
+}
+
+async function getLatestProducts(): Promise<Product[]> {
   try {
-    const res = await fetch(`${API_URL}/api/public/products`, { cache: 'no-store' });
+    const res = await fetch("http://localhost:5000/api/public/products", {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
     const data = await res.json();
-    if (data.success && data.data && data.data.length > 0) {
-      const withImages = data.data.filter((p: any) => p.image_url);
-      if (withImages.length > 0) {
-        const randomized = [...withImages].sort(() => 0.5 - Math.random());
-        return randomized.slice(0, 6);
-      }
-      const randomFallback = [...data.data].sort(() => 0.5 - Math.random());
-      return randomFallback.slice(0, 6);
-    }
-  } catch (e) {
-    console.error("Failed to fetch products:", e);
+    return (data.products || []).slice(0, 6);
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
   }
-  return [];
+}
+
+async function getBrands(): Promise<Brand[]> {
+  try {
+    const res = await fetch("http://localhost:5000/api/public/brands", {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.brands || [];
+  } catch (error) {
+    console.error("Failed to fetch brands:", error);
+    return [];
+  }
 }
 
 export default async function Home() {
-  const latestProducts = await getLatestProducts();
-  const marqueeBrands = await getBrands();
+  const [latestProducts, brands] = await Promise.all([
+    getLatestProducts(),
+    getBrands(),
+  ]);
+
+  const marqueeBrands = brands.filter((b) => b.logo_url);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-background">
+      <section className="relative pt-24 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-transparent">
         
         {/* Headline */}
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center mb-12">
-          <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-foreground tracking-tighter leading-none">
+          <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-white tracking-tighter leading-none drop-shadow-sm">
             Wholesale, refined.
           </h1>
         </div>
         
-        {/* Hero Image with blended edges */}
-        <div className="relative w-full max-w-6xl mx-auto z-0 px-4 sm:px-8 mb-16">
-           <Image 
-            src="/images/hero_bg_new.jpg" 
-            alt="Wholesale Distribution" 
-            width={1200}
-            height={675}
-            className="w-full h-auto object-contain" 
-            priority 
-            sizes="(max-width: 768px) 100vw, 1200px"
-          />
-          {/* Edge Blending Gradients */}
-          <div className="absolute top-0 left-4 sm:left-8 right-4 sm:right-8 h-2 sm:h-3 bg-gradient-to-b from-background to-transparent pointer-events-none" />
-          <div className="absolute top-0 left-4 sm:left-8 bottom-0 w-2 sm:w-3 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          <div className="absolute top-0 right-4 sm:right-8 bottom-0 w-2 sm:w-3 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+        {/* Hero Image with subtle side and edge blends */}
+        <div className="relative w-full max-w-6xl mx-auto z-10 px-4 sm:px-8 mb-16">
+          <div 
+            className="relative w-full overflow-hidden rounded-2xl"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)'
+            }}
+          >
+            <div
+              className="relative w-full"
+              style={{
+                WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)',
+                maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)'
+              }}
+            >
+              <Image 
+                src="/images/hero_bg_new.jpg" 
+                alt="Wholesale Distribution" 
+                width={1200}
+                height={675}
+                className="w-full h-auto object-contain" 
+                priority 
+                sizes="(max-width: 768px) 100vw, 1200px"
+              />
+              {/* Subtle edge blend overlay */}
+              <div className="absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#064e3b]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#064e3b]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 top-0 h-6 sm:h-12 bg-gradient-to-b from-[#064e3b]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-6 sm:h-12 bg-gradient-to-t from-[#064e3b]/40 to-transparent pointer-events-none" />
+            </div>
+          </div>
         </div>
 
         {/* Subtext and Button */}
         <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center mb-12">
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-10 font-light tracking-tight">
+          <p className="text-xl sm:text-2xl text-emerald-100/90 mb-10 font-light tracking-tight">
             Premium equipment and supplies for discerning businesses across Northern California.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products" 
-              className="inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg transition-transform active:scale-95"
+              className="inline-flex items-center justify-center rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-semibold px-8 py-4 text-lg transition-transform active:scale-95 shadow-xl hover:shadow-2xl"
             >
               Shop Wholesale
             </Link>
@@ -87,7 +115,7 @@ export default async function Home() {
       </section>
 
       {/* Marquee Section */}
-      <section className="py-20 bg-secondary overflow-hidden relative group">
+      <section className="py-16 bg-white/90 backdrop-blur-md border-y border-white/20 overflow-hidden relative group">
         
         {/* The Marquee (Single Layer, Full Color) */}
         <div className="mobile-marquee flex w-max items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
@@ -114,50 +142,50 @@ export default async function Home() {
         />
 
         {/* Fade Edges to blend with background */}
-        <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-secondary to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-secondary to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 left-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
       </section>
 
       {/* Utility Grid Features */}
-      <section className="py-32 bg-background px-4">
+      <section className="py-28 bg-transparent px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
-              <div className="text-primary mb-6">
+            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
+              <div className="text-emerald-700 mb-6">
                 <Truck className="w-10 h-10 stroke-1" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Fast Dispatch.</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">Next-day delivery optimized for Northern California.</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Fast Dispatch.</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Next-day delivery optimized for Northern California.</p>
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
-              <div className="text-primary mb-6">
+            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
+              <div className="text-emerald-700 mb-6">
                 <Shield className="w-10 h-10 stroke-1" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Verified Quality.</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">Rigorous quality control for every batch you order.</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Verified Quality.</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Rigorous quality control for every batch you order.</p>
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-background rounded-[18px] p-10 border border-border flex flex-col items-center text-center">
-              <div className="text-primary mb-6">
+            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
+              <div className="text-emerald-700 mb-6">
                 <Factory className="w-10 h-10 stroke-1" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground mb-3 tracking-tight">Direct Sourcing.</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">Exclusive manufacturer partnerships for unbeatable margins.</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Direct Sourcing.</h3>
+              <p className="text-gray-600 text-lg leading-relaxed">Exclusive manufacturer partnerships for unbeatable margins.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Latest Arrivals */}
-      <section className="py-32 bg-secondary px-4">
+      <section className="py-28 bg-transparent px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <h2 className="text-5xl font-bold text-foreground mb-4 tracking-tighter">Latest Arrivals.</h2>
-            <Link href="/products" className="text-primary font-medium hover:underline underline-offset-4 text-lg">
+            <h2 className="text-5xl font-bold text-white mb-4 tracking-tighter drop-shadow-sm">Latest Arrivals.</h2>
+            <Link href="/products" className="text-emerald-200 font-medium hover:text-white hover:underline underline-offset-4 text-lg">
               Explore the Collection &gt;
             </Link>
           </div>
@@ -165,8 +193,8 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestProducts.map((product) => (
               <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group block">
-                <div className="bg-background rounded-[18px] overflow-hidden flex flex-col h-full border border-border/50 hover:shadow-2xl hover:shadow-black/5 transition-all duration-500">
-                  <div className="aspect-[4/3] bg-background relative p-8 flex items-center justify-center">
+                <div className="bg-white/95 backdrop-blur-md rounded-[18px] overflow-hidden flex flex-col h-full border border-white/30 shadow-xl hover:shadow-2xl transition-all duration-500">
+                  <div className="aspect-[4/3] bg-white relative p-8 flex items-center justify-center">
                       {product.image_url ? (
                         <Image
                           src={product.image_url}
@@ -182,10 +210,10 @@ export default async function Home() {
                         </div>
                       )}
                   </div>
-                  <div className="p-8 pt-4 flex flex-col flex-1 text-center bg-background">
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3">{product.brand || 'Unbranded'}</span>
-                    <h3 className="font-bold text-xl text-foreground mb-1 tracking-tight">{product.name}</h3>
-                    <p className="text-base text-muted-foreground mt-1">{product.category_name}</p>
+                  <div className="p-8 pt-4 flex flex-col flex-1 text-center bg-white/95">
+                    <span className="text-xs font-semibold text-emerald-800 uppercase tracking-widest mb-3">{product.brand || 'Unbranded'}</span>
+                    <h3 className="font-bold text-xl text-gray-900 mb-1 tracking-tight">{product.name}</h3>
+                    <p className="text-base text-gray-500 mt-1">{product.category_name}</p>
                   </div>
                 </div>
               </Link>

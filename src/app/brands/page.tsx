@@ -22,8 +22,10 @@ export default async function BrandsPage() {
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-playfair font-bold text-slate-900 mb-4">Our Brand Partners</h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+        <h1 className="text-4xl md:text-5xl font-playfair font-bold text-white mb-4 drop-shadow-sm">
+          Our Brand Partners
+        </h1>
+        <p className="text-lg text-emerald-100/90 max-w-2xl mx-auto">
           We are proud to partner with industry-leading brands to bring you the highest quality products.
         </p>
       </div>
@@ -33,8 +35,8 @@ export default async function BrandsPage() {
           const logoUrl = brand.logo_url;
           return (
             <Link key={brand.name} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="group">
-              <div className="bg-white rounded-2xl border p-8 flex flex-col items-center justify-center aspect-square hover:shadow-xl transition-all duration-300 relative overflow-hidden">
-                <div className="absolute inset-0 bg-slate-50 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-white/40 p-8 flex flex-col items-center justify-center aspect-square shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 relative overflow-hidden">
+                <div className="absolute inset-0 bg-emerald-50/50 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {logoUrl ? (
                   <div className="relative w-full h-full z-10 flex items-center justify-center">
                     <Image
@@ -46,7 +48,7 @@ export default async function BrandsPage() {
                     />
                   </div>
                 ) : (
-                  <span className="font-playfair text-2xl font-bold text-slate-800 text-center z-10 group-hover:scale-110 transition-transform duration-500">
+                  <span className="font-playfair text-2xl font-bold text-gray-900 text-center z-10 group-hover:scale-110 transition-transform duration-500">
                     {brand.name}
                   </span>
                 )}
