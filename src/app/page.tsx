@@ -65,9 +65,9 @@ export default async function Home() {
             sizes="(max-width: 768px) 100vw, 1200px"
           />
           {/* Edge Blending Gradients */}
-          <div className="absolute top-0 left-4 sm:left-8 right-4 sm:right-8 h-6 sm:h-8 bg-gradient-to-b from-background to-transparent pointer-events-none" />
-          <div className="absolute top-0 left-4 sm:left-8 bottom-0 w-6 sm:w-8 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          <div className="absolute top-0 right-4 sm:right-8 bottom-0 w-6 sm:w-8 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-4 sm:left-8 right-4 sm:right-8 h-2 sm:h-3 bg-gradient-to-b from-background to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-4 sm:left-8 bottom-0 w-2 sm:w-3 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-4 sm:right-8 bottom-0 w-2 sm:w-3 bg-gradient-to-l from-background to-transparent pointer-events-none" />
         </div>
 
         {/* Subtext and Button */}
