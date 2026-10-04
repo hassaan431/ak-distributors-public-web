@@ -44,12 +44,36 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-background">
-        <div className="relative z-10 max-w-4xl mx-auto py-24 flex flex-col items-center">
-          <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-foreground mb-4 tracking-tighter leading-none">
-            Wholesale, <br/> refined.
+      <section className="relative pt-24 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-background">
+        
+        {/* Headline */}
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center mb-12">
+          <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-foreground tracking-tighter leading-none">
+            Wholesale, refined.
           </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto font-light tracking-tight">
+        </div>
+        
+        {/* Hero Image with blended edges */}
+        <div className="relative w-full max-w-6xl mx-auto z-0 px-4 sm:px-8 mb-16">
+           <Image 
+            src="/images/hero_bg_new.jpg" 
+            alt="Wholesale Distribution" 
+            width={1200}
+            height={675}
+            className="w-full h-auto object-contain" 
+            priority 
+            sizes="(max-width: 768px) 100vw, 1200px"
+          />
+          {/* Edge Blending Gradients */}
+          <div className="absolute top-0 left-4 sm:left-8 right-4 sm:right-8 h-16 sm:h-24 bg-gradient-to-b from-background to-transparent pointer-events-none" />
+          <div className="absolute bottom-0 left-4 sm:left-8 right-4 sm:right-8 h-16 sm:h-24 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-4 sm:left-8 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+          <div className="absolute top-0 right-4 sm:right-8 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+        </div>
+
+        {/* Subtext and Button */}
+        <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center mb-12">
+          <p className="text-xl sm:text-2xl text-muted-foreground mb-10 font-light tracking-tight">
             Premium equipment and supplies for discerning businesses across Northern California.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -60,19 +84,6 @@ export default async function Home() {
               Shop Wholesale
             </Link>
           </div>
-        </div>
-        
-        {/* We use hero_bg_new.jpg but present it as a clean product shot if possible */}
-        <div className="relative w-full max-w-6xl mx-auto -mt-8 z-0 px-4 sm:px-8">
-           <Image 
-            src="/images/hero_bg_new.jpg" 
-            alt="Wholesale Distribution" 
-            width={1200}
-            height={675}
-            className="w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]" 
-            priority 
-            sizes="(max-width: 768px) 100vw, 1200px"
-          />
         </div>
       </section>
 
