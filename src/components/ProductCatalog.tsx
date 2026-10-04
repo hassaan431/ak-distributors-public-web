@@ -33,15 +33,15 @@ export default function ProductCatalog({
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-6">
+      <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 gap-6">
         <div className="flex-1 w-full">
-          <h1 className="text-4xl font-playfair font-bold text-slate-900 mb-4">Product Catalog</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tighter leading-none">Product Catalog</h1>
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 h-5 w-5" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />
             <Input
               type="text"
               placeholder="Search products..."
-              className="pl-10 h-12 rounded-full border-slate-200 bg-white"
+              className="pl-12 h-14 rounded-full border-border bg-background text-lg shadow-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -51,8 +51,8 @@ export default function ProductCatalog({
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Filters Sidebar */}
-        <div className="w-full md:w-64 shrink-0">
-          <div className="bg-background rounded-[18px] p-6 border border-border sticky top-24">
+        <div className="w-full md:w-64 shrink-0 z-10">
+          <div className="bg-background rounded-[18px] p-6 border border-border md:sticky md:top-24">
             <h3 className="font-bold text-lg mb-4 text-foreground">Brands</h3>
             <div className="flex flex-col gap-1 max-h-[60vh] overflow-y-auto pr-2">
               <button

@@ -90,7 +90,7 @@ export default async function Home() {
       <section className="py-20 bg-secondary overflow-hidden relative group">
         
         {/* The Marquee (Single Layer, Full Color) */}
-        <div className="mobile-marquee flex items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
+        <div className="mobile-marquee flex w-max items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
           {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
             <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 transition-transform hover:scale-105">
               <Image
