@@ -65,12 +65,12 @@ export default async function Home() {
         </div>
         
         {/* Hero Image with subtle side and edge blends */}
-        <div className="relative w-full max-w-6xl mx-auto z-10 px-4 sm:px-8 mb-16">
+        <div className="relative w-full max-w-full mx-auto z-10 px-0 mb-16">
           <div 
-            className="relative w-full overflow-hidden rounded-2xl"
+            className="relative w-full overflow-hidden"
             style={{
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)',
-              maskImage: 'linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%)'
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%)',
+              maskImage: 'linear-gradient(to right, transparent 0%, black 2%, black 98%, transparent 100%)'
             }}
           >
             <div
@@ -83,15 +83,15 @@ export default async function Home() {
               <Image 
                 src="/images/hero_bg_new.jpg" 
                 alt="Wholesale Distribution" 
-                width={1200}
-                height={675}
+                width={1920}
+                height={1080}
                 className="w-full h-auto object-contain" 
                 priority 
-                sizes="(max-width: 768px) 100vw, 1200px"
+                sizes="100vw"
               />
               {/* Subtle edge blend overlay */}
-              <div className="absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-[#064e3b]/40 to-transparent pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-[#064e3b]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-4 sm:w-8 bg-gradient-to-r from-[#064e3b]/50 to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-4 sm:w-8 bg-gradient-to-l from-[#064e3b]/50 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 top-0 h-6 sm:h-12 bg-gradient-to-b from-[#064e3b]/40 to-transparent pointer-events-none" />
               <div className="absolute inset-x-0 bottom-0 h-6 sm:h-12 bg-gradient-to-t from-[#064e3b]/40 to-transparent pointer-events-none" />
             </div>
