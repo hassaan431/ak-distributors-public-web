@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Truck, Shield, Factory } from "lucide-react";
+import { FlipText } from "@/components/ui/flip-text";
 
 interface Product {
   id: number;
@@ -60,7 +61,7 @@ export default async function Home() {
         {/* Headline */}
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center mb-12">
           <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-white tracking-tighter leading-none drop-shadow-sm">
-            Wholesale, refined.
+            <FlipText>Wholesale, refined.</FlipText>
           </h1>
         </div>
         

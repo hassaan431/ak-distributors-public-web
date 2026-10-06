@@ -199,3 +199,29 @@
     scrollbar-width: none;
   }
 }
+
+@layer utilities {
+  .flip-char {
+    display: inline-block;
+    animation: flip-text var(--flip-duration, 2s) cubic-bezier(0.4, 0, 0.2, 1) var(--flip-delay, 0s) var(--flip-iteration, 1) forwards;
+    transform-origin: 50% 50%;
+  }
+  @keyframes flip-text {
+    0% {
+      transform: rotateX(-90deg);
+      opacity: 0;
+    }
+    10% {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+    90% {
+      transform: rotateX(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: rotateX(90deg);
+      opacity: 0;
+    }
+  }
+}
