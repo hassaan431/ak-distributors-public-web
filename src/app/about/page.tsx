@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Target, HeartHandshake, Box, Truck, ShieldCheck } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
 
 export default function AboutPage() {
   return (
@@ -34,6 +35,12 @@ export default function AboutPage() {
                 <p className="text-lg text-gray-600 leading-relaxed">
                   Our state-of-the-art warehouses and optimized logistics network ensure that your orders are processed swiftly and delivered on time. We understand the unique needs of supermarkets, grocers, and foodservice providers.
                 </p>
+                <div className="pt-4 flex items-center gap-3">
+                  <a href="https://www.instagram.com/akdistributorsllc/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-emerald-700 hover:text-emerald-600 font-medium transition-colors">
+                    <FaInstagram className="h-5 w-5" />
+                    Follow us on Instagram
+                  </a>
+                </div>
               </div>
               <div className="relative h-[360px] md:h-[400px] rounded-2xl overflow-hidden shadow-xl">
                 <Image src="/images/hero_bg.png" alt="Warehouse Operations" fill className="object-cover" />

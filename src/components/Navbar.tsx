@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
@@ -41,12 +42,20 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile Nav Spacer */}
-        <div className="hidden md:flex items-center gap-3 relative z-10 w-[28px]">
+        {/* Social & Mobile Nav Spacer */}
+        <div className="hidden md:flex items-center gap-4 relative z-10">
+          <Link href="https://www.instagram.com/akdistributorsllc/" target="_blank" rel="noopener noreferrer" className="text-emerald-100/80 hover:text-white transition-colors">
+            <FaInstagram className="h-5 w-5" />
+            <span className="sr-only">Instagram</span>
+          </Link>
         </div>
 
         {/* Mobile Nav */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center gap-4">
+          <Link href="https://www.instagram.com/akdistributorsllc/" target="_blank" rel="noopener noreferrer" className="text-emerald-100/80 hover:text-white transition-colors">
+            <FaInstagram className="h-5 w-5" />
+            <span className="sr-only">Instagram</span>
+          </Link>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger className="inline-flex items-center justify-center h-10 w-10 rounded-md hover:bg-emerald-900/50 text-white transition-colors">
               <Menu className="h-5 w-5" />
