@@ -56,7 +56,7 @@ export default function BrandCarousel({ brands }: { brands: { id: number, name: 
         className="flex items-center overflow-x-auto  scrollbar-hide py-4 px-12 sm:px-24 space-x-12 sm:space-x-20"
       >
         {duplicatedBrands.map((brand, i) => (
-          <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="transition-transform hover:scale-110 shrink-0 ">
+          <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="transition-spring hover:scale-110 shrink-0 ">
             <Image
               src={brand.logo_url || ""}
               alt={brand.name}

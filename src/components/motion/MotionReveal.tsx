@@ -1,7 +1,7 @@
 "use client";
 
 import { Reveal } from "cube-motion/react";
-import { ReactNode } from "react";
+import { ReactNode, ElementType } from "react";
 
 export function MotionReveal({
   children,
@@ -11,7 +11,7 @@ export function MotionReveal({
   className
 }: {
   children: ReactNode;
-  as?: string | any;
+  as?: ElementType;
   targets?: "self" | "children";
   stagger?: number;
   className?: string;

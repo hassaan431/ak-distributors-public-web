@@ -99,7 +99,7 @@ export default function ProductCatalog({
                 return (
                   <div 
                     key={product.id} 
-                    className="bg-white/95 backdrop-blur-md border border-white/40 rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 shadow-xl relative group animate-cascade opacity-0"
+                    className="bg-white/95 backdrop-blur-md border border-white/40 rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-spring-all duration-500 shadow-xl relative group animate-cascade opacity-0"
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
                     <div className="aspect-square bg-white relative p-6 flex items-center justify-center overflow-hidden">
@@ -110,10 +110,10 @@ export default function ProductCatalog({
                           fill
                           unoptimized
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 drop-shadow-md mix-blend-multiply"
+                          className="object-contain p-4 group-hover:scale-105 transition-spring duration-500 drop-shadow-md mix-blend-multiply"
                         />
                       ) : (
-                        <div className="text-xl font-bold text-gray-400 uppercase text-center group-hover:scale-105 transition-transform duration-500 tracking-tighter">
+                        <div className="text-xl font-bold text-gray-400 uppercase text-center group-hover:scale-105 transition-spring duration-500 tracking-tighter">
                           {product.name}
                         </div>
                       )}

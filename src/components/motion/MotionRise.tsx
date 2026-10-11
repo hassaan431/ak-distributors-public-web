@@ -1,7 +1,7 @@
 "use client";
 
 import { Rise } from "cube-motion/react";
-import { ReactNode } from "react";
+import { ReactNode, ElementType } from "react";
 
 export function MotionRise({
   children,
@@ -13,7 +13,7 @@ export function MotionRise({
   className
 }: {
   children: ReactNode;
-  as?: string | any;
+  as?: ElementType;
   targets?: "self" | "children";
   stagger?: number;
   delay?: number;

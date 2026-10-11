@@ -42,6 +42,18 @@
   --animate-marquee-fast: marquee 15s linear infinite;
   --animate-cascade: cascade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
+  --ease-spring: linear(
+    0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%,
+    0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 60.7%,
+    1.01 68.4%, 1.001 80%, 1
+  );
+  --ease-spring-bounce: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 18.3%,
+    1.077 20.2%, 1.121 22.2%, 1.149 24.3%, 1.159 26.6%, 1.153 29%, 1.131 31.6%,
+    1.096 34.6%, 1.053 38.1%, 1.01 42.2%, 0.974 47.1%, 0.954 52.8%, 0.951 58%,
+    0.959 63.8%, 0.977 70.8%, 0.996 79.2%, 1.004 88.3%, 1
+  );
+
   @keyframes accordion-down {
     from {
       height: 0;
@@ -225,3 +237,55 @@
     }
   }
 }
+
+@layer utilities {
+  .transition-spring {
+    transition-property: transform, translate, scale, rotate;
+    transition-duration: 500ms;
+    transition-timing-function: var(--ease-spring-bounce);
+  }
+  .transition-spring-all {
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: var(--ease-spring-bounce);
+  }
+}
+
+/* Lenis smooth scrolling support */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Architectural Arch Portal Intro & Unveil Motion (era-residence.com)
+   ========================================================================== */
+
+[data-preloader] {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* 3D Transform perspectives */
+.split-char, .split-word, .split-line {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+.preloader_ctn {
+  perspective: 1000px;
+}
+

@@ -10,6 +10,11 @@ interface FlipTextProps {
     className?: string;
 
     /**
+     * Element tag to render as (defaults to "span" for valid phrasing content inside headings)
+     */
+    as?: "span" | "div";
+
+    /**
      * The text content to animate (will be split by spaces)
      */
     children: string;
@@ -47,6 +52,7 @@ interface FlipTextProps {
 
 export function FlipText({
     className,
+    as: Component = "span",
     children,
     duration = 2.2,
     delay = 0,
@@ -67,7 +73,7 @@ export function FlipText({
     };
 
     return (
-        <div
+        <Component
             className={cn(
                 "flip-text-wrapper inline-block leading-none",
                 className
@@ -121,7 +127,7 @@ export function FlipText({
                     </span>
                 );
             })}
-        </div>
+        </Component>
     );
 }
 

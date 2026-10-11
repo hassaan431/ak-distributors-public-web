@@ -35,7 +35,7 @@ export default async function BrandsPage() {
           const logoUrl = brand.logo_url;
           return (
             <Link key={brand.name} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="group">
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-white/40 p-8 flex flex-col items-center justify-center aspect-square shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 relative overflow-hidden">
+              <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-white/40 p-8 flex flex-col items-center justify-center aspect-square shadow-xl hover:shadow-2xl hover:scale-[1.03] transition-spring-all duration-500 relative overflow-hidden">
                 <div className="absolute inset-0 bg-emerald-50/50 opacity-0 group-hover:opacity-100 transition-opacity" />
                 {logoUrl ? (
                   <div className="relative w-full h-full z-10 flex items-center justify-center">
@@ -44,11 +44,11 @@ export default async function BrandsPage() {
                       alt={brand.name}
                       fill
                       unoptimized
-                      className="object-contain p-4 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply"
+                      className="object-contain p-4 group-hover:scale-110 transition-spring duration-500 mix-blend-multiply"
                     />
                   </div>
                 ) : (
-                  <span className="font-playfair text-2xl font-bold text-gray-900 text-center z-10 group-hover:scale-110 transition-transform duration-500">
+                  <span className="font-playfair text-2xl font-bold text-gray-900 text-center z-10 group-hover:scale-110 transition-spring duration-500">
                     {brand.name}
                   </span>
                 )}

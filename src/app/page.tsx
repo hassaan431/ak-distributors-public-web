@@ -59,14 +59,17 @@ export default async function Home() {
       <section className="relative pt-24 pb-12 flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-transparent">
         
         {/* Headline */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center mb-12">
+        <div data-hero-headline className="relative z-10 max-w-4xl mx-auto flex flex-col items-center mb-12">
           <h1 className="text-5xl sm:text-7xl md:text-[80px] font-bold text-white tracking-tighter leading-none drop-shadow-sm">
-            <FlipText>Wholesale, refined.</FlipText>
+            <span className="sr-only">Wholesale, refined.</span>
+            <span aria-hidden="true">
+              <FlipText>Wholesale, refined.</FlipText>
+            </span>
           </h1>
         </div>
         
         {/* Hero Image with subtle side and edge blends */}
-        <div className="relative w-full max-w-full mx-auto z-10 px-0 mb-16">
+        <div className="relative w-full max-w-full mx-auto z-10 px-0 mb-16 overflow-hidden">
           <div 
             className="relative w-full overflow-hidden"
             style={{
@@ -75,7 +78,8 @@ export default async function Home() {
             }}
           >
             <div
-              className="relative w-full"
+              data-hero-master-img
+              className="relative w-full origin-top"
               style={{
                 WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)',
                 maskImage: 'linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)'
@@ -101,13 +105,13 @@ export default async function Home() {
 
         {/* Subtext and Button */}
         <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center mb-12">
-          <p className="text-xl sm:text-2xl text-emerald-100/90 mb-10 font-light tracking-tight">
+          <p data-hero-subtext className="text-xl sm:text-2xl text-emerald-100/90 mb-10 font-light tracking-tight">
             Premium equipment and supplies for discerning businesses across Northern California.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div data-hero-cta className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/products" 
-              className="inline-flex items-center justify-center rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-semibold px-8 py-4 text-lg transition-transform active:scale-95 shadow-xl hover:shadow-2xl"
+              className="inline-flex items-center justify-center rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-semibold px-8 py-4 text-lg transition-spring hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl"
             >
               Shop Wholesale
             </Link>
@@ -121,7 +125,7 @@ export default async function Home() {
         {/* The Marquee (Single Layer, Full Color) */}
         <div className="mobile-marquee flex w-max items-center whitespace-nowrap group-hover:[animation-play-state:paused]">
           {[...marqueeBrands, ...marqueeBrands, ...marqueeBrands, ...marqueeBrands].map((brand, i) => (
-            <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 transition-transform hover:scale-105">
+            <Link key={i} href={`/products?brand=${encodeURIComponent(brand.name)}`} className="mx-8 md:mx-12 shrink-0 transition-spring hover:scale-110">
               <Image
                 src={brand.logo_url}
                 alt={brand.name}
@@ -194,7 +198,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestProducts.map((product) => (
               <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group block">
-                <div className="bg-white/95 backdrop-blur-md rounded-[18px] overflow-hidden flex flex-col h-full border border-white/30 shadow-xl hover:shadow-2xl transition-all duration-500">
+                <div className="bg-white/95 backdrop-blur-md rounded-[18px] overflow-hidden flex flex-col h-full border border-white/30 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-spring-all duration-500">
                   <div className="aspect-[4/3] bg-white relative p-8 flex items-center justify-center">
                       {product.image_url ? (
                         <Image
@@ -203,7 +207,7 @@ export default async function Home() {
                           fill
                           unoptimized
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain p-8 group-hover:scale-105 transition-transform duration-700 drop-shadow-xl"
+                          className="object-contain p-8 group-hover:scale-105 transition-spring duration-500 drop-shadow-xl"
                         />
                       ) : (
                         <div className="text-2xl font-bold text-muted uppercase text-center tracking-tighter">
