@@ -10,11 +10,16 @@ export default function Footer() {
 
   const handleReplay = () => {
     if (typeof window !== "undefined") {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+
       if (window.replayArchIntro) {
         window.replayArchIntro();
       } else {
         sessionStorage.removeItem("hasVisited");
-        router.push("/");
+        router.push("/?intro=1");
       }
     }
   };

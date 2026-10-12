@@ -14,6 +14,7 @@ export default function ArchPortalPreloader() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archCutoutRef = useRef<SVGPathElement>(null);
   const archOutlineRef = useRef<SVGPathElement>(null);
+  const activeTlRef = useRef<gsap.core.Timeline | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function ArchPortalPreloader() {
     };
 
     const finishAndHandoff = () => {
+      activeTlRef.current = null;
       const el = containerRef.current;
       if (el) {
         el.style.display = "none";
@@ -77,9 +79,15 @@ export default function ArchPortalPreloader() {
       const el = containerRef.current;
       if (!el) return;
 
+      if (activeTlRef.current) {
+        activeTlRef.current.kill();
+        activeTlRef.current = null;
+      }
+
       // Lock scroll during the intro animation
       document.body.style.overflow = "hidden";
       if (window.__lenis) {
+        window.__lenis.scrollTo(0, { immediate: true });
         window.__lenis.stop();
       }
       window.scrollTo(0, 0);
@@ -123,6 +131,7 @@ export default function ArchPortalPreloader() {
         const fastTl = gsap.timeline({
           onComplete: finishAndHandoff,
         });
+        activeTlRef.current = fastTl;
 
         fastTl.to(archState, {
           w: 130,
@@ -158,6 +167,7 @@ export default function ArchPortalPreloader() {
       const tl = gsap.timeline({
         onComplete: finishAndHandoff,
       });
+      activeTlRef.current = tl;
 
       const phase1W = isMobile ? 50 : 36;
       const phase1Y = isMobile ? 12 : 14;
@@ -257,6 +267,14 @@ export default function ArchPortalPreloader() {
 
     return () => {
       window.removeEventListener("replay-arch-intro", handleReplayEvent);
+      if (activeTlRef.current) {
+        activeTlRef.current.kill();
+        activeTlRef.current = null;
+      }
+      document.body.style.overflow = "";
+      if (window.__lenis) {
+        window.__lenis.start();
+      }
     };
   }, [pathname]);
 

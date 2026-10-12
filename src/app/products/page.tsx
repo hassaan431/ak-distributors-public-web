@@ -1,10 +1,11 @@
-export const dynamic = 'force-dynamic';
 import ProductCatalog from "@/components/ProductCatalog";
+import { getApiBaseUrl } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Revalidate every hour
 
 async function getProducts() {
-  const url = `${process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com'}/api/public/products`;
+  const url = `${getApiBaseUrl()}/api/public/products`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];
@@ -17,12 +18,12 @@ async function getProducts() {
 }
 
 async function getBrands() {
-  const url = `${process.env.BACKEND_INTERNAL_URL || 'https://akdistributors.pythonanywhere.com'}/api/public/brands`;
+  const url = `${getApiBaseUrl()}/api/public/brands`;
   try {
     const res = await fetch(url);
     if (!res.ok) return [];
     const data = await res.json();
-    return data.data.map((b: { name: string }) => b.name) || [];
+    return (data.data || []).map((b: { name: string }) => b.name);
   } catch (error) {
     console.error("Failed to fetch brands:", error);
     return [];

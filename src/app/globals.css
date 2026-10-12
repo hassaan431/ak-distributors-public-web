@@ -279,13 +279,5 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-/* 3D Transform perspectives */
-.split-char, .split-word, .split-line {
-  display: inline-block;
-  will-change: transform, opacity;
-  transform-style: preserve-3d;
-}
-.preloader_ctn {
-  perspective: 1000px;
-}
+
 

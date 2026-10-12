@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const BACKEND_URL = process.env.BACKEND_INTERNAL_URL || "http://127.0.0.1:5000";
+const BACKEND_URL = process.env.BACKEND_INTERNAL_URL || "https://akdistributors.pythonanywhere.com";
 
 const nextConfig: NextConfig = {
   // Allow local mobile testing without HMR cross-origin blocks

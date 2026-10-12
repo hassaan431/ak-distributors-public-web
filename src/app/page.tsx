@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Truck, Shield, Factory } from "lucide-react";
 import { FlipText } from "@/components/ui/flip-text";
+import { getApiBaseUrl } from "@/lib/utils";
 
 interface Product {
   id: number;
@@ -19,12 +20,13 @@ interface Brand {
 
 async function getLatestProducts(): Promise<Product[]> {
   try {
-    const res = await fetch("http://localhost:5000/api/public/products", {
+    const res = await fetch(`${getApiBaseUrl()}/api/public/products`, {
       next: { revalidate: 60 },
     });
     if (!res.ok) return [];
     const data = await res.json();
-    return (data.products || []).slice(0, 6);
+    const list = data.data || data.products || [];
+    return list.slice(0, 6);
   } catch (error) {
     console.error("Failed to fetch products:", error);
     return [];
@@ -33,12 +35,12 @@ async function getLatestProducts(): Promise<Product[]> {
 
 async function getBrands(): Promise<Brand[]> {
   try {
-    const res = await fetch("http://localhost:5000/api/public/brands", {
+    const res = await fetch(`${getApiBaseUrl()}/api/public/brands`, {
       next: { revalidate: 60 },
     });
     if (!res.ok) return [];
     const data = await res.json();
-    return data.brands || [];
+    return data.data || data.brands || [];
   } catch (error) {
     console.error("Failed to fetch brands:", error);
     return [];
