@@ -21,6 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" as="image" href="/images/intro/ak-crest.png" />
+        <link rel="preload" as="image" href="/images/intro/greetings.png" />
+      </head>
       <body className={`${outfit.variable} font-sans antialiased min-h-screen flex flex-col text-foreground relative selection:bg-emerald-500 selection:text-white`}>
         <SmoothScroll>
           {/* Architectural Arch Portal Intro & Unveil Motion */}

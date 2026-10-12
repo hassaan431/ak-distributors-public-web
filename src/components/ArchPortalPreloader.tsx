@@ -14,6 +14,8 @@ export default function ArchPortalPreloader() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archCutoutRef = useRef<SVGPathElement>(null);
   const archOutlineRef = useRef<SVGPathElement>(null);
+  const leftWingRef = useRef<HTMLDivElement>(null);
+  const rightWingRef = useRef<HTMLDivElement>(null);
   const activeTlRef = useRef<gsap.core.Timeline | null>(null);
   const pathname = usePathname();
 
@@ -121,7 +123,7 @@ export default function ArchPortalPreloader() {
       }
 
       // Start with arch already in view framing the bottom of the page (no black screen)
-      const startW = isMobile ? 44 : 26;
+      const startW = isMobile ? 42 : 26;
       const startY = isMobile ? 75 : 80;
       const archState = { w: startW, y: startY };
       updateArchPath(startW, startY);
@@ -132,6 +134,9 @@ export default function ArchPortalPreloader() {
           onComplete: finishAndHandoff,
         });
         activeTlRef.current = fastTl;
+
+        if (leftWingRef.current) gsap.set(leftWingRef.current, { opacity: 0 });
+        if (rightWingRef.current) gsap.set(rightWingRef.current, { opacity: 0 });
 
         fastTl.to(archState, {
           w: 130,
@@ -162,14 +167,27 @@ export default function ArchPortalPreloader() {
         // Ignore storage access errors
       }
 
+      // Prepare side wings initial state
+      if (leftWingRef.current) {
+        gsap.set(leftWingRef.current, {
+          opacity: 0,
+          x: isMobile ? -15 : -35,
+        });
+      }
+      if (rightWingRef.current) {
+        gsap.set(rightWingRef.current, {
+          opacity: 0,
+          x: isMobile ? 15 : 35,
+        });
+      }
+
       // Cinematic Arch Portal timeline (~3.5s total)
-      // Slower and more deliberate so viewers clearly notice and appreciate the arch portal framing
       const tl = gsap.timeline({
         onComplete: finishAndHandoff,
       });
       activeTlRef.current = tl;
 
-      const phase1W = isMobile ? 50 : 36;
+      const phase1W = isMobile ? 44 : 36;
       const phase1Y = isMobile ? 12 : 14;
 
       // Phase 1: Smoothly pan arch upwards into centered framing position (0s -> 1.5s)
@@ -190,8 +208,25 @@ export default function ArchPortalPreloader() {
         }, 0);
       }
 
-      // Framing Hold: 0.6s deliberate pause (1.5s -> 2.1s) where the arch stays settled at 14vh,
-      // giving the viewer ample time to clearly notice and admire the architectural arch silhouette.
+      // Flanking Wings entrance: Fade and glide in alongside the arch ascent (0.2s -> 1.5s)
+      if (leftWingRef.current) {
+        tl.to(leftWingRef.current, {
+          opacity: 1,
+          x: 0,
+          duration: 1.3,
+          ease: "power2.out",
+        }, 0.2);
+      }
+      if (rightWingRef.current) {
+        tl.to(rightWingRef.current, {
+          opacity: 1,
+          x: 0,
+          duration: 1.3,
+          ease: "power2.out",
+        }, 0.2);
+      }
+
+      // Framing Hold: 0.6s deliberate pause (1.5s -> 2.1s) where the arch, left crest, and right greetings hold
 
       // Phase 2: Dive-in zoom through the arch into the building (2.1s -> 3.5s)
       tl.to(archState, {
@@ -206,6 +241,24 @@ export default function ArchPortalPreloader() {
       if (archOutlineRef.current) {
         tl.to(archOutlineRef.current, {
           opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+        }, 2.1);
+      }
+
+      // Concurrently: Wings smoothly part outward and dissolve as portal expands (2.1s -> 2.7s)
+      if (leftWingRef.current) {
+        tl.to(leftWingRef.current, {
+          opacity: 0,
+          x: isMobile ? -25 : -45,
+          duration: 0.6,
+          ease: "power2.out",
+        }, 2.1);
+      }
+      if (rightWingRef.current) {
+        tl.to(rightWingRef.current, {
+          opacity: 0,
+          x: isMobile ? 25 : 45,
           duration: 0.6,
           ease: "power2.out",
         }, 2.1);
@@ -285,9 +338,10 @@ export default function ArchPortalPreloader() {
       ref={containerRef}
       data-preloader
       aria-hidden="true"
-      className="fixed inset-0 z-[9999] pointer-events-none select-none overflow-hidden"
+      className="fixed inset-0 z-[9999] pointer-events-none select-none overflow-hidden bg-transparent"
     >
-      <svg className="w-full h-full block">
+      {/* SVG Mask with pure black backdrop & dynamic center arch cutout */}
+      <svg className="w-full h-full block absolute inset-0 z-0">
         <defs>
           <mask id="arch-portal-mask" maskUnits="userSpaceOnUse">
             {/* White covers entire viewport (renders the dark background) */}
@@ -296,11 +350,11 @@ export default function ArchPortalPreloader() {
             <path ref={archCutoutRef} fill="black" />
           </mask>
         </defs>
-        {/* Full-screen luxury dark backdrop with dynamic arch cutout */}
+        {/* Full-screen luxury pure black backdrop with dynamic arch cutout */}
         <rect
           width="100%"
           height="100%"
-          fill="#121110"
+          fill="#000000"
           mask="url(#arch-portal-mask)"
         />
         {/* Crisp architectural hairline silhouette */}
@@ -311,6 +365,38 @@ export default function ArchPortalPreloader() {
           strokeWidth="1.5"
         />
       </svg>
+
+      {/* Flanking Wing 1: Left Side - AK Distributors Crest Logo */}
+      <div
+        ref={leftWingRef}
+        className="absolute left-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[28vw] md:w-[32vw] px-2 sm:px-4 md:px-8"
+      >
+        <div className="relative w-full max-w-[120px] sm:max-w-[170px] md:max-w-[240px] lg:max-w-[300px] xl:max-w-[340px] flex items-center justify-center">
+          <img
+            src="/images/intro/ak-crest.png"
+            alt="AK Distributors LLC Crest"
+            className="w-full h-auto object-contain mix-blend-screen drop-shadow-[0_4px_24px_rgba(255,255,255,0.06)]"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      {/* Flanking Wing 2: Right Side - Multilingual Cultural Greetings */}
+      <div
+        ref={rightWingRef}
+        className="absolute right-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[28vw] md:w-[32vw] px-2 sm:px-4 md:px-8"
+      >
+        <div className="relative w-full max-w-[110px] sm:max-w-[150px] md:max-w-[210px] lg:max-w-[260px] xl:max-w-[300px] flex items-center justify-center">
+          <img
+            src="/images/intro/greetings.png"
+            alt="Welcome Greetings in Multiple Languages"
+            className="w-full h-auto object-contain mix-blend-screen drop-shadow-[0_4px_24px_rgba(255,255,255,0.06)]"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
     </div>
   );
 }
