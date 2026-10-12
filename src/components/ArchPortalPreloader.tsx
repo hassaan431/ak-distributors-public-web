@@ -369,13 +369,13 @@ export default function ArchPortalPreloader() {
       {/* Flanking Wing 1: Left Side - AK Distributors Crest Logo */}
       <div
         ref={leftWingRef}
-        className="absolute left-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[28vw] md:w-[32vw] px-2 sm:px-4 md:px-8"
+        className="absolute left-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[30vw] md:w-[32vw] px-3 sm:px-6 md:px-10"
       >
-        <div className="relative w-full max-w-[120px] sm:max-w-[170px] md:max-w-[240px] lg:max-w-[300px] xl:max-w-[340px] flex items-center justify-center">
+        <div className="relative w-full max-w-[140px] sm:max-w-[200px] md:max-w-[280px] lg:max-w-[340px] xl:max-w-[380px] flex items-center justify-center">
           <img
             src="/images/intro/ak-crest.png"
             alt="AK Distributors LLC Crest"
-            className="w-full h-auto object-contain mix-blend-screen drop-shadow-[0_4px_24px_rgba(255,255,255,0.06)]"
+            className="w-full h-auto object-contain drop-shadow-[0_4px_30px_rgba(255,255,255,0.08)]"
             loading="eager"
             decoding="async"
           />
@@ -385,13 +385,13 @@ export default function ArchPortalPreloader() {
       {/* Flanking Wing 2: Right Side - Multilingual Cultural Greetings */}
       <div
         ref={rightWingRef}
-        className="absolute right-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[28vw] md:w-[32vw] px-2 sm:px-4 md:px-8"
+        className="absolute right-0 top-0 bottom-0 z-10 flex flex-col items-center justify-center pointer-events-none w-[30vw] md:w-[32vw] px-3 sm:px-6 md:px-10"
       >
-        <div className="relative w-full max-w-[110px] sm:max-w-[150px] md:max-w-[210px] lg:max-w-[260px] xl:max-w-[300px] flex items-center justify-center">
+        <div className="relative w-full max-w-[130px] sm:max-w-[180px] md:max-w-[250px] lg:max-w-[300px] xl:max-w-[340px] flex items-center justify-center">
           <img
             src="/images/intro/greetings.png"
             alt="Welcome Greetings in Multiple Languages"
-            className="w-full h-auto object-contain mix-blend-screen drop-shadow-[0_4px_24px_rgba(255,255,255,0.06)]"
+            className="w-full h-auto object-contain drop-shadow-[0_4px_30px_rgba(255,255,255,0.08)]"
             loading="eager"
             decoding="async"
           />
