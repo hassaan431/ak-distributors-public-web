@@ -4,18 +4,39 @@ import { Truck, Shield, Factory } from "lucide-react";
 import { FlipText } from "@/components/ui/flip-text";
 import { getApiBaseUrl } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic';
+
 interface Product {
   id: number;
   name: string;
   category_name: string;
   image_url: string | null;
   brand: string | null;
+  inventory?: number | null;
 }
 
 interface Brand {
   id: number;
   name: string;
   logo_url: string;
+}
+
+function getRandomProducts(products: Product[], count = 6): Product[] {
+  // Filter out any products explicitly reporting 0 inventory
+  const inStock = products.filter((p) => p.inventory === undefined || p.inventory === null || p.inventory > 0);
+
+  // Prefer products with an image for high-quality featured cards
+  const withImages = inStock.filter((p) => p.image_url);
+  const pool = withImages.length >= count ? withImages : inStock;
+
+  // Fisher-Yates shuffle
+  const shuffled = [...pool];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled.slice(0, count);
 }
 
 async function getLatestProducts(): Promise<Product[]> {
@@ -25,8 +46,8 @@ async function getLatestProducts(): Promise<Product[]> {
     });
     if (!res.ok) return [];
     const data = await res.json();
-    const list = data.data || data.products || [];
-    return list.slice(0, 6);
+    const list: Product[] = data.data || data.products || [];
+    return getRandomProducts(list, 6);
   } catch (error) {
     console.error("Failed to fetch products:", error);
     return [];
