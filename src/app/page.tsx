@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Truck, Shield, Factory } from "lucide-react";
 import { FlipText } from "@/components/ui/flip-text";
+import { TiltCard } from "@/components/ui/tilt-card";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 import { getApiBaseUrl } from "@/lib/utils";
 
 export const dynamic = 'force-dynamic';
@@ -132,12 +134,15 @@ export default async function Home() {
             Premium equipment and supplies for discerning businesses across Northern California.
           </p>
           <div data-hero-cta className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/products" 
-              className="inline-flex items-center justify-center rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-semibold px-8 py-4 text-lg transition-spring hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl"
-            >
-              Shop Wholesale
-            </Link>
+            <MagneticButton strength={0.3} maxDistance={14}>
+              <Link 
+                href="/products" 
+                className="group relative inline-flex items-center justify-center rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-semibold px-9 py-4 text-lg transition-all duration-300 shadow-xl hover:shadow-2xl overflow-hidden active:scale-95"
+              >
+                <span className="relative z-10">Shop Wholesale</span>
+                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500/0 via-emerald-500/15 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </Link>
+            </MagneticButton>
           </div>
         </div>
       </section>
@@ -179,31 +184,37 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
-              <div className="text-emerald-700 mb-6">
-                <Truck className="w-10 h-10 stroke-1" />
+            <TiltCard maxTilt={9} scale={1.02} glare glareMaxOpacity={0.25} className="h-full rounded-[18px]">
+              <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-colors duration-300 h-full [transform-style:preserve-3d]">
+                <div className="text-emerald-700 mb-6 [transform:translateZ(28px)] transition-transform duration-300">
+                  <Truck className="w-10 h-10 stroke-1" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight [transform:translateZ(18px)]">Fast Dispatch.</h3>
+                <p className="text-gray-600 text-lg leading-relaxed [transform:translateZ(12px)]">Next-day delivery optimized for Northern California.</p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Fast Dispatch.</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Next-day delivery optimized for Northern California.</p>
-            </div>
+            </TiltCard>
 
             {/* Feature 2 */}
-            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
-              <div className="text-emerald-700 mb-6">
-                <Shield className="w-10 h-10 stroke-1" />
+            <TiltCard maxTilt={9} scale={1.02} glare glareMaxOpacity={0.25} className="h-full rounded-[18px]">
+              <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-colors duration-300 h-full [transform-style:preserve-3d]">
+                <div className="text-emerald-700 mb-6 [transform:translateZ(28px)] transition-transform duration-300">
+                  <Shield className="w-10 h-10 stroke-1" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight [transform:translateZ(18px)]">Verified Quality.</h3>
+                <p className="text-gray-600 text-lg leading-relaxed [transform:translateZ(12px)]">Rigorous quality control for every batch you order.</p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Verified Quality.</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Rigorous quality control for every batch you order.</p>
-            </div>
+            </TiltCard>
 
             {/* Feature 3 */}
-            <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-all">
-              <div className="text-emerald-700 mb-6">
-                <Factory className="w-10 h-10 stroke-1" />
+            <TiltCard maxTilt={9} scale={1.02} glare glareMaxOpacity={0.25} className="h-full rounded-[18px]">
+              <div className="bg-white/95 backdrop-blur-md rounded-[18px] p-10 border border-white/40 shadow-xl flex flex-col items-center text-center hover:bg-white transition-colors duration-300 h-full [transform-style:preserve-3d]">
+                <div className="text-emerald-700 mb-6 [transform:translateZ(28px)] transition-transform duration-300">
+                  <Factory className="w-10 h-10 stroke-1" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight [transform:translateZ(18px)]">Direct Sourcing.</h3>
+                <p className="text-gray-600 text-lg leading-relaxed [transform:translateZ(12px)]">Exclusive manufacturer partnerships for unbeatable margins.</p>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Direct Sourcing.</h3>
-              <p className="text-gray-600 text-lg leading-relaxed">Exclusive manufacturer partnerships for unbeatable margins.</p>
-            </div>
+            </TiltCard>
           </div>
         </div>
       </section>
@@ -213,16 +224,19 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold text-white mb-4 tracking-tighter drop-shadow-sm">Latest Arrivals.</h2>
-            <Link href="/products" className="text-emerald-200 font-medium hover:text-white hover:underline underline-offset-4 text-lg">
-              Explore the Collection &gt;
-            </Link>
+            <MagneticButton strength={0.2} maxDistance={8}>
+              <Link href="/products" className="inline-block text-emerald-200 font-medium hover:text-white hover:underline underline-offset-4 text-lg transition-colors">
+                Explore the Collection &gt;
+              </Link>
+            </MagneticButton>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestProducts.map((product) => (
-              <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group block">
-                <div className="bg-white/95 backdrop-blur-md rounded-[18px] overflow-hidden flex flex-col h-full border border-white/30 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-spring-all duration-500">
-                  <div className="aspect-[4/3] bg-white relative p-8 flex items-center justify-center">
+              <Link key={product.id} href={`/products?brand=${encodeURIComponent(product.brand || '')}`} className="group block h-full">
+                <TiltCard maxTilt={8} scale={1.02} glare glareMaxOpacity={0.2} className="h-full rounded-[18px]">
+                  <div className="bg-white/95 backdrop-blur-md rounded-[18px] overflow-hidden flex flex-col h-full border border-white/30 shadow-xl group-hover:shadow-2xl transition-all duration-500 [transform-style:preserve-3d]">
+                    <div className="aspect-[4/3] bg-white relative p-8 flex items-center justify-center [transform:translateZ(24px)]">
                       {product.image_url ? (
                         <Image
                           src={product.image_url}
@@ -230,20 +244,21 @@ export default async function Home() {
                           fill
                           unoptimized
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-contain p-8 group-hover:scale-105 transition-spring duration-500 drop-shadow-xl"
+                          className="object-contain p-8 group-hover:scale-105 transition-transform duration-500 drop-shadow-xl"
                         />
                       ) : (
                         <div className="text-2xl font-bold text-muted uppercase text-center tracking-tighter">
                           {product.name}
                         </div>
                       )}
+                    </div>
+                    <div className="p-8 pt-4 flex flex-col flex-1 text-center bg-white/95 [transform:translateZ(14px)]">
+                      <span className="text-xs font-semibold text-emerald-800 uppercase tracking-widest mb-3">{product.brand || 'Unbranded'}</span>
+                      <h3 className="font-bold text-xl text-gray-900 mb-1 tracking-tight">{product.name}</h3>
+                      <p className="text-base text-gray-500 mt-1">{product.category_name}</p>
+                    </div>
                   </div>
-                  <div className="p-8 pt-4 flex flex-col flex-1 text-center bg-white/95">
-                    <span className="text-xs font-semibold text-emerald-800 uppercase tracking-widest mb-3">{product.brand || 'Unbranded'}</span>
-                    <h3 className="font-bold text-xl text-gray-900 mb-1 tracking-tight">{product.name}</h3>
-                    <p className="text-base text-gray-500 mt-1">{product.category_name}</p>
-                  </div>
-                </div>
+                </TiltCard>
               </Link>
             ))}
           </div>

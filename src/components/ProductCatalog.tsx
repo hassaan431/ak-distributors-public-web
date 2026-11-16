@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 type Product = {
   id: number;
@@ -97,33 +98,39 @@ export default function ProductCatalog({
               {filteredProducts.map((product, i) => {
                 const imageUrl = product.image_url;
                 return (
-                  <div 
-                    key={product.id} 
-                    className="bg-white/95 backdrop-blur-md border border-white/40 rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-spring-all duration-500 shadow-xl relative group animate-cascade opacity-0"
+                  <TiltCard 
+                    key={product.id}
+                    maxTilt={7}
+                    scale={1.02}
+                    glare
+                    glareMaxOpacity={0.2}
+                    className="h-full rounded-[18px] animate-cascade opacity-0"
                     style={{ animationDelay: `${i * 100}ms` }}
                   >
-                    <div className="aspect-square bg-white relative p-6 flex items-center justify-center overflow-hidden">
-                      {imageUrl ? (
-                        <Image
-                          src={imageUrl}
-                          alt={product.name}
-                          fill
-                          unoptimized
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                          className="object-contain p-4 group-hover:scale-105 transition-spring duration-500 drop-shadow-md mix-blend-multiply"
-                        />
-                      ) : (
-                        <div className="text-xl font-bold text-gray-400 uppercase text-center group-hover:scale-105 transition-spring duration-500 tracking-tighter">
-                          {product.name}
-                        </div>
-                      )}
+                    <div className="bg-white/95 backdrop-blur-md border border-white/40 rounded-[18px] h-full flex flex-col overflow-hidden hover:shadow-2xl shadow-xl relative group transition-shadow duration-300 [transform-style:preserve-3d]">
+                      <div className="aspect-square bg-white relative p-6 flex items-center justify-center overflow-hidden [transform:translateZ(20px)]">
+                        {imageUrl ? (
+                          <Image
+                            src={imageUrl}
+                            alt={product.name}
+                            fill
+                            unoptimized
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 drop-shadow-md mix-blend-multiply"
+                          />
+                        ) : (
+                          <div className="text-xl font-bold text-gray-400 uppercase text-center group-hover:scale-105 transition-transform duration-500 tracking-tighter">
+                            {product.name}
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-6 flex flex-col flex-1 bg-white/95 [transform:translateZ(12px)]">
+                        <span className="text-[11px] font-semibold text-emerald-800 uppercase tracking-widest mb-2">{product.brand || 'Unbranded'}</span>
+                        <h3 className="font-semibold text-[17px] text-gray-900 mb-1 line-clamp-2 leading-snug tracking-tight">{product.name}</h3>
+                        <p className="text-[15px] text-gray-500 mt-auto">{product.category_name}</p>
+                      </div>
                     </div>
-                    <div className="p-6 flex flex-col flex-1 bg-white/95">
-                      <span className="text-[11px] font-semibold text-emerald-800 uppercase tracking-widest mb-2">{product.brand || 'Unbranded'}</span>
-                      <h3 className="font-semibold text-[17px] text-gray-900 mb-1 line-clamp-2 leading-snug tracking-tight">{product.name}</h3>
-                      <p className="text-[15px] text-gray-500 mt-auto">{product.category_name}</p>
-                    </div>
-                  </div>
+                  </TiltCard>
                 );
               })}
             </div>
